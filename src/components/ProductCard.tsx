@@ -50,7 +50,7 @@ export function ProductCard({ product }: ProductCardProps) {
                 handleAddToCart();
               }}
               disabled={isOutOfStock}
-              className="w-full py-2 text-sm font-medium rounded-md transition-colors disabled:opacity-40 disabled:cursor-not-allowed bg-[#4285f4] text-white hover:bg-[#3b78e7]"
+              className="w-full py-2.5 px-4 text-sm font-medium rounded-full border border-gray-300 transition-all disabled:opacity-40 disabled:cursor-not-allowed bg-white text-gray-700 hover:bg-gray-50 hover:border-gray-400 hover:shadow-sm"
             >
               {isOutOfStock ? 'Out of stock' : 'Add to cart'}
             </button>
