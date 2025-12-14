@@ -6,7 +6,7 @@ import { Product } from '@/lib/types';
 import { ProductCard } from '@/components/ProductCard';
 import { Header } from '@/components/Header';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import { Search } from 'lucide-react';
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -37,11 +37,6 @@ export default function Home() {
     fetchProducts(searchKeyword);
   };
 
-  const handleClear = () => {
-    setSearchKeyword('');
-    fetchProducts();
-  };
-
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       handleSearch();
@@ -49,56 +44,44 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f5f5f5]">
+    <div className="min-h-screen bg-white">
       <Header />
       
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <h1 className="text-3xl font-bold text-[#333] mb-6">ShopFlow Products</h1>
-        
-        <div className="flex gap-3 mb-8">
-          <Input
-            type="text"
-            placeholder="Search products..."
-            value={searchKeyword}
-            onChange={(e) => setSearchKeyword(e.target.value)}
-            onKeyPress={handleKeyPress}
-            className="max-w-md bg-white"
-          />
-          <Button 
-            onClick={handleSearch}
-            className="bg-gradient-to-r from-[#667eea] to-[#764ba2] hover:opacity-90"
-          >
-            Search
-          </Button>
-          <Button 
-            onClick={handleClear}
-            variant="outline"
-            className="border-gray-300"
-          >
-            Clear
-          </Button>
+      <main className="max-w-[1400px] mx-auto px-6 py-6">
+        <div className="max-w-2xl mx-auto mb-8">
+          <div className="relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <Input
+              type="text"
+              placeholder="Search ShopFlow"
+              value={searchKeyword}
+              onChange={(e) => setSearchKeyword(e.target.value)}
+              onKeyPress={handleKeyPress}
+              className="w-full pl-12 pr-4 h-12 text-base border-gray-300 rounded-full shadow-sm hover:shadow-md focus:shadow-md transition-shadow"
+            />
+          </div>
         </div>
 
         {loading && (
-          <div className="flex justify-center items-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-4 border-[#667eea] border-t-transparent"></div>
+          <div className="flex justify-center items-center py-20">
+            <div className="animate-spin rounded-full h-10 w-10 border-3 border-[#4285f4] border-t-transparent"></div>
           </div>
         )}
 
         {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg mb-6">
+          <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg mb-6 max-w-2xl mx-auto">
             {error}
           </div>
         )}
 
         {!loading && !error && products.length === 0 && (
-          <div className="text-center py-12 text-gray-500">
-            No products found. Try a different search term.
+          <div className="text-center py-20 text-gray-500">
+            No products found
           </div>
         )}
 
         {!loading && !error && products.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
