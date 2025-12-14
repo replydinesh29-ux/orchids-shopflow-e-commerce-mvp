@@ -55,7 +55,7 @@ export default function ProductDetail({ params }: { params: Promise<{ id: string
     }
   };
 
-  const isOutOfStock = product && product.stock <= 0;
+  const isOutOfStock = product ? product.stock <= 0 : false;
   const initial = product?.name.charAt(0).toUpperCase() || '?';
 
   return (
